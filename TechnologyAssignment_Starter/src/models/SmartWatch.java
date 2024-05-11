@@ -16,7 +16,7 @@ public class SmartWatch extends WearableDevice {
      * @param id               ID of the wearable
      * @param displayType      Display type of the wearable
      */
-    public SmartWatch(String size, double price, String manufacturerName, String material, String modelName, String id,String displayType) {
+    public SmartWatch(String size, double price, String manufacturerName, String material, String modelName, String id, String displayType) {
         super(size, price, manufacturerName, material, modelName, id);
         this.displayType= displayType;
     }

@@ -19,7 +19,7 @@ public class SmartBand extends WearableDevice{
         this.heartRateMonitor = heartRateMonitor;
     }
     public boolean isHeartRateMonitor() {
-        return heartRateMonitor;
+        return this.heartRateMonitor;
     }
     public void setHeartRateMonitor(boolean heartRateMonitor) {
         this.heartRateMonitor = heartRateMonitor;
