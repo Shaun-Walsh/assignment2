@@ -7,6 +7,7 @@ import models.WearableDevice;
 import java.util.ArrayList;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import utils.ISerializer;
 import utils.ManufacturerNameUtility;
 
 import java.io.FileReader;
@@ -15,7 +16,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.File;
 
-public class WearableDeviceAPI {
+public class WearableDeviceAPI implements ISerializer {
     //TODO Create a list to store the Wearable Devices
     /**
      * Creates an ArrayList of WearableDevice
@@ -341,6 +342,36 @@ public class WearableDeviceAPI {
 
 
     //TODO get Technology methods
+    /**
+     * This method returns a model.WearableDevice given the index. If the
+     * index does not exist in the collection, null is returned.
+     *
+     * @param index  The integer of the index  to search by
+     * @return  position of the product if it exists, -1 otherwise.
+     */
+    public WearableDevice getWearableDeviceByIndex(int index) {
+        if (isValidIndex(index)) {
+            return wearableList.get(index);
+        }
+        return null;
+    }
+
+    /**
+     * This method returns the Product of a product given the product code. If the
+     * product code does not exist in the collection, null is returned.
+     *
+     * @param id  The integer code  to search by
+     * @return  position of the product if it exists, -1 otherwise.
+     */
+    public WearableDevice getWearableDeviceById(String id) {
+        String matchingIds = "";
+        for(int i = 0; i< wearableList.size(); i++) {
+            if (wearableList.get(i).getId().equals(id)){
+                return wearableList.get(i);
+            }
+        }
+        return null;
+    }
 
     //TODO - delete methods
     /**
@@ -442,6 +473,11 @@ public class WearableDeviceAPI {
         ObjectInputStream is = xstream.createObjectInputStream(new FileReader("wearableList.xml"));
         wearableList = (ArrayList<WearableDevice>) is.readObject();
         is.close();
+    }
+
+    @Override
+    public String fileName() {
+        return "wearableList.xml";
     }
 
     public void save() throws Exception {
