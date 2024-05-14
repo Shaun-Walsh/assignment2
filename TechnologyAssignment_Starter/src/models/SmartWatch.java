@@ -1,5 +1,6 @@
 package models;
 
+import utils.DisplayTypeUtility;
 import utils.Utilities;
 
 public class SmartWatch extends WearableDevice {
@@ -18,14 +19,15 @@ public class SmartWatch extends WearableDevice {
      */
     public SmartWatch(String size, double price, String manufacturerName, String material, String modelName, String id, String displayType) {
         super(size, price, manufacturerName, material, modelName, id);
-        this.displayType= displayType;
+        setDisplayType(displayType);
     }
     public String getDisplayType() {
         return displayType;
     }
 
     public void setDisplayType(String displayType) {
-        this.displayType = displayType;
+        if (DisplayTypeUtility.isValidDisplayType(displayType.toLowerCase()))
+            this.displayType = displayType;
     }
 
     public double getInsurancePremium(){
@@ -33,7 +35,7 @@ public class SmartWatch extends WearableDevice {
         //  price of Smart Watch * .06
         //  e.g.  230 *.06 = 13.8
         double insurancePremium = getPrice() * .06;
-        return insurancePremium;
+        return Utilities.toTwoDecimalPlaces(insurancePremium);
     }
     public String connectToInternet(){
        String internet = "Connects to the internet via bluetooth";
@@ -41,7 +43,6 @@ public class SmartWatch extends WearableDevice {
         // return the String "Connects to the internet via bluetooth"
     }
 
-    @Override
     public String toString() {
         return super.toString()  + " " + displayType + " insurance premium is " + getInsurancePremium() + " and it " + connectToInternet();
     }

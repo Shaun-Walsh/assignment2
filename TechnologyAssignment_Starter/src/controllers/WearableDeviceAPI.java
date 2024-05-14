@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.File;
+import java.util.List;
 
 public class WearableDeviceAPI implements ISerializer {
     //TODO Create a list to store the Wearable Devices
@@ -52,7 +53,7 @@ public class WearableDeviceAPI implements ISerializer {
     //leave this method in starter
     //the following is isValidId can be updated
     //to suit your code
-    /*
+
     public boolean isValidId(String id) {
         for (WearableDevice techDev : wearableList) {
             if (techDev.getId().equals(id))
@@ -60,7 +61,7 @@ public class WearableDeviceAPI implements ISerializer {
         }
             return true;
         }
-*/
+
     /**
      * This method takes in a number and checks if it is a valid index in the products ArrayList.
      *
@@ -360,8 +361,8 @@ public class WearableDeviceAPI implements ISerializer {
      * This method returns the Product of a product given the product code. If the
      * product code does not exist in the collection, null is returned.
      *
-     * @param id  The integer code  to search by
-     * @return  position of the product if it exists, -1 otherwise.
+     * @param id  The string to search by
+     * @return  position of the product if it exists, otherwise null.
      */
     public WearableDevice getWearableDeviceById(String id) {
         String matchingIds = "";
@@ -390,7 +391,7 @@ public class WearableDeviceAPI implements ISerializer {
     /**
      * Delete a models.WearableDevice from the ArrayList, if it exists as the id passed as a parameter.
      * CHECK THIS METHOD LATER
-     * @param strId  of the models.Wearabledevice object in the ArrayList
+     * @param strId  of the models.WearableDevice object in the ArrayList
      * @return The deleted product object or null if no object is at the index location
      */
     public WearableDevice deleteWearableDeviceId(String strId) {
@@ -445,14 +446,39 @@ public class WearableDeviceAPI implements ISerializer {
         wearableList.set(j,smaller);
     }
     //TODO Top 5 methods
-    public String topFiveMostExpensiveWearableDevice(ArrayList<WearableDevice> wearableList) {
-
-        return "-1";
+    public String topFiveMostExpensiveWearableDevice() {
+        sortByPriceDescending();
+        String str = "";
+        if (!wearableList.isEmpty()) {
+            for (int i = 0; i < 5; i++) {
+                str += wearableList.get(i).toString() + "\n";
+            }
+            return str;
+        }
+        return "No devices found";
     }
-    public String topFiveMostExpensiveSmartWatches(ArrayList<WearableDevice> wearableList) {
+    public String topFiveMostExpensiveSmartWatches() {
+        sortByPriceDescending();
+        String str = "";
+        int smartWatches = 0;
 
-        return "-1";
+        for (WearableDevice wearableDevice : wearableList) {
+            if (wearableDevice instanceof SmartWatch) {
+                SmartWatch smartWatch = (SmartWatch) wearableDevice;
+                str += smartWatch.toString() + "\n";
+                smartWatches++;
+                if (smartWatches == 5) {
+                    return str;
+                }
+            }
+        }
+        if (smartWatches == 0) {
+            return "No smartwatches found";
+        }
+        return str;
     }
+
+
 
 
 
@@ -462,7 +488,8 @@ public class WearableDeviceAPI implements ISerializer {
     @SuppressWarnings("unchecked")
     public void load() throws Exception {
         //list of classes that you wish to include in the serialisation, separated by a comma
-        Class<?>[] classes = new Class[] { WearableDevice.class };
+        Class<?>[] classes = new Class[] { WearableDevice.class, SmartBand.class, SmartWatch.class };
+
 
         //setting up the xstream object with default security and the above classes
         XStream xstream = new XStream(new DomDriver());
@@ -470,9 +497,9 @@ public class WearableDeviceAPI implements ISerializer {
         xstream.allowTypes(classes);
 
         //doing the actual serialisation to an XML file
-        ObjectInputStream is = xstream.createObjectInputStream(new FileReader("wearableList.xml"));
-        wearableList = (ArrayList<WearableDevice>) is.readObject();
-        is.close();
+        ObjectInputStream in = xstream.createObjectInputStream(new FileReader("wearableList.xml"));
+        wearableList = (ArrayList<WearableDevice>) in.readObject();
+        in.close();
     }
 
     @Override

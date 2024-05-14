@@ -25,20 +25,17 @@ public class SmartBand extends WearableDevice{
         this.heartRateMonitor = heartRateMonitor;
     }
     public double getInsurancePremium(){
-        // Algorithm -
-        //  price of Smart Watch * .07
-        //  e.g.  230 *.07 = 16.1
         double insurancePremium = getPrice() * .07;
-        return insurancePremium;
+        return Utilities.toTwoDecimalPlaces(insurancePremium);
     }
     public String connectToInternet(){
         String internet =  "Connects to the internet via Companion App";
         return internet;
-        // return the String "Connects to the internet via bluetooth"
     }
 
     public String toString() {
         return super.toString()  + " " + heartRateMonitor + " insurance premium is " + getInsurancePremium() + " and it " + connectToInternet();
     }
+
 
 }

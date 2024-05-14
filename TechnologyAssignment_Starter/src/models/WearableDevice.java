@@ -1,4 +1,5 @@
 package models;
+import controllers.WearableDeviceAPI;
 import utils.Utilities;
 import utils.ManufacturerNameUtility;
 public abstract class WearableDevice {
@@ -8,6 +9,7 @@ public abstract class WearableDevice {
     private String material = "";
     private String modelName = "";
     private String id = "unknown";
+
 
     /**
      * Constructor for objects of class models.WearableDevice
@@ -88,4 +90,15 @@ public abstract class WearableDevice {
 
     public abstract double getInsurancePremium();
     public abstract String connectToInternet();
+
+    public String toString() {
+        return "WearableDevice{" +
+                "size='" + size + '\'' +
+                ", price=" + price +
+                ", manufacturerName='" + manufacturerName + '\'' +
+                ", material='" + material + '\'' +
+                ", modelName='" + modelName + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }

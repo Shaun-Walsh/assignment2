@@ -1,0 +1,22 @@
+<object-stream>
+  <list>
+    <main.Driver_-1>
+      <size>1</size>
+      <price>14545.0</price>
+      <manufacturerName>apple</manufacturerName>
+      <material>trees</material>
+      <modelName>7878rft</modelName>
+      <id>retre447</id>
+      <displayType>tft</displayType>
+    </main.Driver_-1>
+    <main.Driver_-2>
+      <size>457</size>
+      <price>45457.0</price>
+      <manufacturerName>garmin</manufacturerName>
+      <material>tree</material>
+      <modelName>ere7845</modelName>
+      <id>ereq54</id>
+      <heartRateMonitor>false</heartRateMonitor>
+    </main.Driver_-2>
+  </list>
+</object-stream>
